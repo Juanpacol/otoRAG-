@@ -1,0 +1,27 @@
+services:
+  api:
+    build:
+      context: .
+      args: { REQS: api }
+    ports: ["8000:8000"]
+    volumes: ["otorag_data:/data"]
+
+  # Solo cuando hay documentos nuevos: docker compose run --rm ingest
+  ingest:
+    build:
+      context: .
+      args: { REQS: ingest }
+    command: ["python", "-c", "print('ingesta: pendiente de implementar')"]
+    volumes: ["otorag_data:/data", "./data/raw:/data/raw:ro"]
+    profiles: ["tools"]
+
+  # Opcional, si se elige Qdrant: docker compose --profile qdrant up
+  qdrant:
+    image: qdrant/qdrant
+    ports: ["6333:6333"]
+    volumes: ["qdrant_data:/qdrant/storage"]
+    profiles: ["qdrant"]
+
+volumes:
+  otorag_data:
+  qdrant_data:
