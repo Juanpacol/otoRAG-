@@ -1,0 +1,12 @@
+# Stack elegido por configuración. Valores propuestos, sin confirmar.
+vector_store: pgvector      # pgvector | qdrant
+embeddings: multilingual    # modelo por definir
+reranker: bge               # bge | cohere | none
+llm: tbd                    # pendiente: qué API permite el profesor
+chunking:
+  size_tokens: 400
+  overlap_pct: 12
+retrieval:
+  k: 30
+  rerank_top_n: 5
+index_version: v0
